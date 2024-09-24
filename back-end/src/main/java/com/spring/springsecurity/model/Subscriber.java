@@ -1,12 +1,11 @@
 package com.spring.springsecurity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,7 +20,11 @@ public class Subscriber {
 
     private String password;
 
-    private String role;
+//    private String role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "subscriber", fetch = FetchType.EAGER)
+    private List<Authority> authorities;
 
     public Long getId() {
         return id;
@@ -47,11 +50,19 @@ public class Subscriber {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+//    public String getRole() {
+//        return role;
+//    }
+
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 }
